@@ -39,15 +39,16 @@ function MapView({ location }: { location: Location | null | undefined }) {
   const position: [number, number] = [location.lat, location.lng];
 
   return (
-    <div style={{ height: "500px", width: "100%" }}>
+    <div style={{ height: "500px", width: "100%", touchAction: "none" }}>
       <MapContainer
         center={position}
         zoom={13}
-        touchZoom={false}         
+        touchZoom={true}         
         doubleClickZoom={false}  
         dragging={true}          
         zoomControl={false}    
         keyboard={false}       
+        scrollWheelZoom={true}
         style={{ height: "100vh", width: "100%" }}
       >
         {/* Update center dynamically */}
