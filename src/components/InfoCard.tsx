@@ -15,7 +15,7 @@ type InfoCardProps = {
 
 function InfoCard({ ip, isp, location }: InfoCardProps) {
 
-    const [data, isData] = [ip, location, isp];
+    const [data, isData] = [ip, isp, location];
     useEffect(() => {
         if (!data) return;
     }, [data])

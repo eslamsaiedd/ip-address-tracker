@@ -18,6 +18,9 @@ interface Location {
   lat: number;
   lng: number;
   city: string;
+  region: string;
+  postalCode: string;
+  timezone: string;
   country: string;
 }
 
@@ -33,23 +36,42 @@ function ChangeView({ center }: { center: [number, number] }) {
 }
 
 function MapView({ location }: { location: Location | null | undefined }) {
-  // Prevent crash if no data yet
-  if (!location) return null;
 
-  const position: [number, number] = [location.lat, location.lng];
+  // Prevent crash if no data yet or invalid coordinates
+  if (!location) {
+    return (
+      <div style={{ height: "400px", width: "100%", display: "flex", alignItems: "center", justifyContent: "center", backgroundColor: "#f0f0f0", border: "1px solid #ccc" }}>
+        <p>Loading map...</p>
+      </div>
+    );
+  }
+
+  // Check if coordinates are valid numbers
+  const lat = parseFloat(location.lat as any);
+  const lng = parseFloat(location.lng as any);
+
+  if (isNaN(lat) || isNaN(lng)) {
+    return (
+      <div style={{ height: "400px", width: "100%", display: "flex", alignItems: "center", justifyContent: "center", backgroundColor: "#f0f0f0", border: "1px solid #ccc" }}>
+        <p>Invalid coordinates</p>
+      </div>
+    );
+  }
+
+  const position: [number, number] = [lat, lng];
 
   return (
-    <div style={{ height: "500px", width: "100%", touchAction: "none" }}>
+    <div style={{ height: "400px", width: "100%" }}>
       <MapContainer
         center={position}
         zoom={13}
-        touchZoom={true}         
-        doubleClickZoom={false}  
-        dragging={true}          
-        zoomControl={false}    
-        keyboard={false}       
+        style={{ height: "100%", width: "100%" }}
+        touchZoom={true}
+        doubleClickZoom={false}
+        dragging={true}
+        zoomControl={true}
+        keyboard={false}
         scrollWheelZoom={true}
-        style={{ height: "100vh", width: "100%" }}
       >
         {/* Update center dynamically */}
         <ChangeView center={position} />

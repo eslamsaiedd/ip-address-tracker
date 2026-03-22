@@ -23,18 +23,21 @@ function Home() {
     const [data, setData] = useState<IpData | null>(null);
     
     useEffect(() => {
-    // Fetch user's IP data on load
-    getIpData('').then(setData).catch(console.error)
+        getIpData('').then((result) => {
+            setData(result);
+        }).catch(console.error)
     }, [])
-    
+
     const handleSearch = async (ip: string) => {
         try {
-          const result = await getIpData(ip);
-          setData(result);
+        const result = await getIpData(ip);
+        setData(result);
         } catch (err) {
-          console.error(err);
+        console.error(err);
         }
     };
+
+
   return (
     <div>
         {/* Header */}
