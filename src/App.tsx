@@ -1,12 +1,12 @@
-import { Outlet } from "react-router-dom";
 import "./App.css";
 import NavBar from "./components/Header/NavBar";
+import Tracker from "./pages/Tracker";
 
 function App() {
   return (
-    <div className="dark:bg-[var(--second-primary-color)] h-[100vh] bg-[#F7F9FB] ">
-    <NavBar/>
-      <Outlet/>
+    <div className="dark:bg-[var(--second-primary-color)] min-h-screen bg-[#F7F9FB]">
+      <NavBar />
+      <Tracker />
     </div>
   );
 }
